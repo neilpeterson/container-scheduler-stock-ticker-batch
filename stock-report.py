@@ -26,10 +26,10 @@ args = parser.parse_args()
 symbols = args.symbols.split(';')
 email = args.email
 print(email)
+print(symbols)
 
 # get stock quote and populate list
 for symbol in symbols:
-    print(symbol)
     r = requests.get(stockurl + symbol)
     print(r.text)
     s = json.loads(r.text[18:-1])
