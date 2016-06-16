@@ -25,13 +25,10 @@ parser.add_argument('--email', help="Email address for report.")
 args = parser.parse_args()
 symbols = args.symbols.split(';')
 email = args.email
-print(email)
-print(symbols)
 
 # get stock quote and populate list
 for symbol in symbols:
     r = requests.get(stockurl + symbol)
-    print(r.text)
     s = json.loads(r.text[18:-1])
     price = (s['LastPrice'])
     l.append(symbol + ' = ' + str(s['LastPrice']) + '\n')  
