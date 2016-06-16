@@ -1,0 +1,8 @@
+FROM python
+
+RUN pip install requests
+RUN pip install azure-storage
+RUN mkdir queue-worker
+RUN git clone https://github.com/neilpeterson/quicktest.git ./queue-worker
+
+ENTRYPOINT ["python", "/queue-worker/queue-worker.py"]
