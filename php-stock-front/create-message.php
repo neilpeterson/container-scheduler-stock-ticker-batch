@@ -1,7 +1,7 @@
 <?php
 
 /*
-php -S localhost:9000 -t "C:\storage\code\container-factory-stock\php-front"
+php -S localhost:9000 -t "C:\storage\code\container-factory-stock\php-stock-front"
 Creates one message, unless an integer is specified for Beast Mode, in this case multiple messages are created.
 I am having an issue with this and large numbers, process times out after 30 seconds (140ish messages are created).
 */
@@ -9,9 +9,12 @@ I am having an issue with this and large numbers, process times out after 30 sec
 require_once 'vendor\autoload.php';
 use WindowsAzure\Common\ServicesBuilder;
 
-$connectionString = '<queue connection string>';
+// get connection string and queue from environment var
+$connectionString = getenv('connectionString');
+$queue = getenv('azurequeue');
+
+// connect to queue
 $queueRestProxy = ServicesBuilder::getInstance()->createQueueService($connectionString);
-$queue = "myqueue";
 
 $symbols = trim($_POST['symbols']);
 $email = trim($_POST['email']);

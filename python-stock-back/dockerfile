@@ -1,5 +1,11 @@
 FROM python
 
+ENV azurestoracct twoqueue
+ENV azurequeue twoqueue
+ENV azurequeuekey vCUrUB+0H0MAI/uozyqJ1NW0MFlIsCs31BJihIwIIxCEb7CXHR2luRb2fopNMPmvWFDrNZpqxCW5uKdJQjxVtA==;
+ENV docker http://13.91.62.17:2375/containers/
+ENV image neilpeterson/stock-report
+
 RUN pip install requests
 RUN pip install azure-storage
 RUN mkdir queue-worker

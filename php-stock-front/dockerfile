@@ -1,5 +1,8 @@
 FROM tutum/apache-php
 
+ENV connectionString DefaultEndpointsProtocol=https;AccountName=twoqueue;AccountKey=vCUrUB+0H0MAI/uozyqJ1NW0MFlIsCs31BJihIwIIxCEb7CXHR2luRb2fopNMPmvWFDrNZpqxCW5uKdJQjxVtA==;
+ENV azurequeue twoqueue
+
 RUN apt-get update
 RUN apt-get install git -y
 RUN rm /app/*

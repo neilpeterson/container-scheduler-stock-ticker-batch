@@ -1,20 +1,21 @@
 from azure.storage.queue import QueueService
+import os
 import requests
 import json
 
-# variables – needs azure queue name, key, and docker api url 
-storagacct = "<acct>"
-queue = "<queue>"
-queuekey = "<queue key>"
-docker = "http://<docker host>:2375/containers/"
-image = "neilpeterson/stock-report"
+# grab environment variables
+azurestoracct = os.environ['azurestoracct']
+azurequeue = os.environ['azurequeue']
+azurequeuekey = os.environ['azurequeuekey']
+docker = os.environ['docker']
+image = os.environ['image']
 
 while True:
     # set up azure queue
-    queue_service = QueueService(account_name=storagacct, account_key=queuekey)
+    queue_service = QueueService(account_name=azurestoracct, account_key=azurequeuekey)
 
     # get messages from azure queue
-    messages = queue_service.get_messages(queue, num_messages=5)
+    messages = queue_service.get_messages(azurequeue, num_messages=5)
 
     # delete from queue, create container, start container
     for message in messages:
@@ -23,10 +24,9 @@ while True:
         # sample json "Image": "neilpeterson/stock-report", "Cmd": ["--symbols=msft;lnkd","--email=nepeters@microsoft.com"]}
         s = message.content.split(':')
         data = json.loads('{"Image": "' + image + '", "Cmd": ["--symbols=' + s[0] + '","--email=' + s[1] + '"]}')
-        print(data)
 
         # delete message from azure queue
-        queue_service.delete_message(queue, message.id, message.pop_receipt)
+        queue_service.delete_message(azurequeue, message.id, message.pop_receipt)
         
         # create and start docker container
         headers = {'Content-Type': 'application/json'}
