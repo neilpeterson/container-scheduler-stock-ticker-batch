@@ -24,6 +24,7 @@ while True:
         # sample json "Image": "neilpeterson/stock-report", "Cmd": ["--symbols=msft;lnkd","--email=nepeters@microsoft.com"]}
         s = message.content.split(':')
         data = json.loads('{"Image": "' + image + '", "Cmd": ["--symbols=' + s[0] + '","--email=' + s[1] + '"]}')
+        print(data)
 
         # delete message from azure queue
         queue_service.delete_message(azurequeue, message.id, message.pop_receipt)
