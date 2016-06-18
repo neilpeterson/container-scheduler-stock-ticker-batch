@@ -1,10 +1,13 @@
 FROM python
 
 ENV gmuser email@gmail.com
-ENV gmpass pass
+ENV gmpass password
 
 RUN pip install requests
-RUN mkdir stock-report
-RUN git clone https://github.com/neilpeterson/container-stock-app.git ./stock-report
+
+RUN mkdir /stock-report && mkdir /tmp-app && \
+    git clone https://github.com/neilpeterson/container-stock-app.git /tmp-app && \
+    cp -rf /tmp-app/python-stock-report/* /stock-report && \
+    rm -rf /tmp-app
 
 ENTRYPOINT ["python", "/stock-report/stock-report.py"]

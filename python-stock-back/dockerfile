@@ -1,14 +1,16 @@
 FROM python
 
-ENV azurestoracct twoqueue
-ENV azurequeue twoqueue
-ENV azurequeuekey vCUrUB+0H0MAI/uozyqJ1NW0MFlIsCs31BJihIwIIxCEb7CXHR2luRb2fopNMPmvWFDrNZpqxCW5uKdJQjxVtA==;
-ENV docker http://13.91.62.17:2375/containers/
+ENV azurestoracct <account>
+ENV azurequeue <queue name>
+ENV azurequeuekey <queue key>
+ENV docker http://<docker host>:2375/containers/
 ENV image neilpeterson/stock-report
 
 RUN pip install requests
 RUN pip install azure-storage
-RUN mkdir queue-worker
-RUN git clone https://github.com/neilpeterson/quicktest.git ./queue-worker
+RUN mkdir /queue-worker && mkdir /tmp-app && \
+    git clone https://github.com/neilpeterson/container-stock-app.git /tmp-app && \
+    cp -rf /tmp-app/python-stock-back/* /queue-worker && \
+    rm -rf /tmp-app
 
 ENTRYPOINT ["python", "/queue-worker/queue-worker.py"]
