@@ -6,7 +6,7 @@ Creates one message, unless an integer is specified for Beast Mode, in this case
 I am having an issue with this and large numbers, process times out after 30 seconds (140ish messages are created).
 */
 
-require_once 'vendor\autoload.php';
+require_once 'vendor/autoload.php';
 use WindowsAzure\Common\ServicesBuilder;
 
 // get connection string and queue from environment var
