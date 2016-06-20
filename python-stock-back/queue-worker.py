@@ -4,17 +4,11 @@ import requests
 import json
 
 # grab environment variables
-#azurestoracct = os.environ['azurestoracct']
-#azurequeue = os.environ['azurequeue']
-#azurequeuekey = os.environ['azurequeuekey']
-#docker = os.environ['docker']
-#image = os.environ['image']
-
-azurestoracct = "twoqueue"
-azurequeue = "myqueue"
-azurequeuekey = "vCUrUB+0H0MAI/uozyqJ1NW0MFlIsCs31BJihIwIIxCEb7CXHR2luRb2fopNMPmvWFDrNZpqxCW5uKdJQjxVtA==;"
-docker = "http://13.93.224.210:2375/containers/"
-image = "neilpeterson/stock-report"
+azurestoracct = os.environ['azurestoracct']
+azurequeue = os.environ['azurequeue']
+azurequeuekey = os.environ['azurequeuekey']
+docker = os.environ['docker']
+image = os.environ['image']
 
 while True:
     # set up azure queue
