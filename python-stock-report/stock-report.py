@@ -7,7 +7,7 @@ import socket
 import time
 
 # Create delay for effect
-time.sleep(5)
+# time.sleep(5)
 
 # variables and enumerate list
 stockurl = "http://dev.markitondemand.com/MODApis/Api/v2/Quote/jsonp?symbol="
