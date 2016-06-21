@@ -6,7 +6,7 @@ import json
 # grab environment variables
 azurestoracct = os.environ['azurestoracct']
 azurequeue = os.environ['azurequeue']
-azurequeuekey = os.environ['azurequeuekey']
+azurequeuekey = os.environ['azurequeuekey'] + "==;"
 docker = os.environ['docker']
 image = os.environ['image']
 
