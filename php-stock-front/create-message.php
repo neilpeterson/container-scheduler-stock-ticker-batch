@@ -24,12 +24,12 @@ if ($beast) {
     
     $num = (int)$beast;
     
-    for ($x = 0; $x <= $num; $x++) {
+    for ($x = 1; $x <= $num; $x++) {
         $queueRestProxy->createMessage($queue , "$symbols".":"."$email");
     }
           
 } else {
-    $queueRestProxy->createMessage($queue,"$symbols");
+    $queueRestProxy->createMessage($queue , "$symbols".":"."$email");
 }
 
 ?> 
