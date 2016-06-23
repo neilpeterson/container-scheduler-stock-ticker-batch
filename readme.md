@@ -3,7 +3,10 @@
 This is simple stock report application; the end user work flow is:
 
 - User enters a stock symbol or multiple stock symbols and an email address.
+- Beast Mode can be used to generate multiple executions (containers).
 - User receives a simple stock report via email.
+
+![](./media/stock-app.gif)
 
 The purpose of this application is to demonstrate the benefits of container technology when paired with distributed application at scale.
 
