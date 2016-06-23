@@ -19,6 +19,7 @@ while True:
 
     # delete from queue, create container, start container
     for message in messages:
+        print(message.content)
         
         # get stock symbols / email address and construct json
         # sample json "Image": "neilpeterson/stock-report", "Cmd": ["--symbols=msft;lnkd","--email=nepeters@microsoft.com"]}
