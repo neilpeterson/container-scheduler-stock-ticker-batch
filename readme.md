@@ -8,7 +8,7 @@ This is simple stock report application; the end user work flow is:
 
 ![](./media/stock-app.gif)
 
-The purpose of this application is to demonstrate the benefits of container technology when paired with distributed application at scale.
+The purpose of this application is to demonstrate the benefits of container technology when paired with distributed application architecture and at scale.
 
 ## Architecture
 
