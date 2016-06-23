@@ -1,10 +1,11 @@
 # Stock App - Container Demo
 
-This is simple stock report application; the work flow is:
+This is simple stock report application; the end user work flow is:
+
 - User enters a stock symbol or multiple stock symbols and an email address.
 - User receives a simple stock report via email.
 
-The purpose of this application is to demonstrate the benefits of container technology at scale. Many current demo applications in circulation demo a static site – database solution. The goal with this demo is to show off how containers enable the future generation of distributed application architecture. 
+The purpose of this application is to demonstrate the benefits of container technology when paired with distributed application at scale.
 
 ## Architecture
 
