@@ -30,4 +30,8 @@ Gather the following Items:
 - Gmail Account Name
 - Gmail Password
 
+## Demo
+
+![](./media/stock-app.gif)
+
 
