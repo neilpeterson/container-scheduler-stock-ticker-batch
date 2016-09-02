@@ -1,0 +1,11 @@
+version: '2'
+services:
+    stock-front:
+        image: neilpeterson/stock-front-linux
+        ports:
+            - "85:80"
+
+    stock-back:
+        image: neilpeterson/stock-back-linux
+        environment:
+            - docker=http://23.99.7.171:2375/containers/
