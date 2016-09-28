@@ -6,14 +6,16 @@ import smtplib
 import socket
 import time
 
-# Create delay for effect
-# time.sleep(5)
-
 # variables and enumerate list
 stockurl = "http://dev.markitondemand.com/MODApis/Api/v2/Quote/jsonp?symbol="
 gmpass = os.environ['gmpass']
 gmuser = os.environ['gmuser']
 l = []
+
+# Create delay for effect
+if "reportdelay" in os.environ:
+    reportdelay = os.environ['reportdelay']
+    time.sleep(int(reportdelay))
 
 # get host name (container id)
 h = socket.gethostname()
