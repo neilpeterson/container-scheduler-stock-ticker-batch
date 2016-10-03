@@ -12,21 +12,22 @@ gmpass = os.environ['gmpass']
 gmuser = os.environ['gmuser']
 l = []
 
-# Create delay for effect
-if "reportdelay" in os.environ:
-    reportdelay = os.environ['reportdelay']
-    time.sleep(int(reportdelay))
-
-# get host name (container id)
-h = socket.gethostname()
-
 # parse arguments
 parser = argparse.ArgumentParser()
 parser.add_argument('--symbols', help="Stock symbols to search.")
 parser.add_argument('--email', help="Email address for report.")
+parser.add_argument('--delay', help="Delay in seconds for demo.")
 args = parser.parse_args()
 symbols = args.symbols.split(';')
 email = args.email
+delay = args.delay
+
+# Create delay for effect
+if delay:
+    time.sleep(int(delay))
+
+# get host name (container id)
+h = socket.gethostname()
 
 # get stock quote and populate list
 for symbol in symbols:
