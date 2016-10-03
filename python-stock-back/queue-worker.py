@@ -1,14 +1,25 @@
 from azure.storage.queue import QueueService
-import os
-import requests
 import json
+import os
+import random
+import requests
 
 # grab environment variables
 azurestoracct = os.environ['azurestoracct']
 azurequeue = os.environ['azurequeue']
 azurequeuekey = os.environ['azurequeuekey'] + "==;"
-docker = os.environ['docker']
 image = os.environ['image']
+
+if "delay" in os.environ:
+    delay = os.environ['delay']
+else:
+    delay = 0
+
+if "docker" in os.environ:
+    docker = os.environ['docker']
+
+if "chronos" in os.environ:
+    chronos = os.environ['chronos']
 
 while True:
     # set up azure queue
@@ -19,19 +30,38 @@ while True:
 
     # delete from queue, create container, start container
     for message in messages:
-        print(message.content)
+        #print(message.content)
         
-        # get stock symbols / email address and construct json
-        # sample json "Image": "neilpeterson/stock-report", "Cmd": ["--symbols=msft;lnkd","--email=nepeters@microsoft.com"]}
-        s = message.content.split(':')
-        data = json.loads('{"Image": "' + image + '", "Cmd": ["--symbols=' + s[0] + '","--email=' + s[1] + '"]}')
-        print(data)
-
         # delete message from azure queue
         queue_service.delete_message(azurequeue, message.id, message.pop_receipt)
+                
+        if "docker" in os.environ:
+
+            # sample json
+            # {"Image": "neilpeterson/stock-report","Cmd": ["--symbols=msft;lnkd", "--email=nepeters@microsoft.com"],"Env": ["gmuser = xneilpetersonx@gmail.com", "gmpass = TempForDemo2016"]}
+            s = message.content.split(':')
+            data = json.loads('{"Image": "neilpeterson/stock-report-linux","Cmd": ["--symbols=' + s[0] +'", "--email=' + s[1] + ' --delay=' + str(delay) + '"]}')
+            print(data)
         
-        # create and start docker container
-        headers = {'Content-Type': 'application/json'}
-        r = requests.post(docker + "create", data=json.dumps(data), headers=headers)
-        b = json.loads(r.text)
-        x = requests.post(docker + b['Id'] + "/start")
+            # create and start docker container
+            headers = {'Content-Type': 'application/json'}
+            r = requests.post(docker + "create", data=json.dumps(data), headers=headers)
+            b = json.loads(r.text)
+            x = requests.post(docker + b['Id'] + "/start")
+
+        if "chronos" in os.environ:
+
+            randomint = random.randint(1, 100000)
+            
+            # sample json
+            # {"schedule": "R0/2016-09-28T22:55:00Z/PT24H", "name": "docker08", "cpus": "0.1", "mem": "32", "command": "docker run -e reportdelay=120 -e gmuser=xneilpetersonx@gmail.com -e gmpass=TempForDemo2016 neilpeterson/stock-report-linux --symbols=msft --email=neil.peterson@microsoft.com"}
+            s = message.content.split(':')
+            data = json.loads('{"schedule": "R0/2016-09-28T22:55:00Z/PT24H","name":"' + str(randomint) + '","cpus": "0.1","mem": "32","command": "docker run -e reportdelay=' + str(delay) + ' neilpeterson/stock-report-linux --symbols=' + s[0] + ' --email=' + s[1] + '"}')
+            print(data)
+
+            # create and start docker container
+            headers = {'Content-Type': 'application/json'}
+            r = requests.post(chronos + "scheduler/iso8601", data=json.dumps(data), headers=headers)
+            print (r.text)
+            x = requests.put(chronos + 'scheduler/job/' + str(randomint))
+            x = requests.delete(chronos + 'scheduler/job/' + str(randomint))
