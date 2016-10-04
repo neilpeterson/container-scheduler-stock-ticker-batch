@@ -65,4 +65,4 @@ while True:
             headers = {'Content-Type': 'application/json'}
             r = requests.post(chronos + "scheduler/iso8601", data=json.dumps(data), headers=headers)
             print (r)
-            x = requests.put(chronos + 'scheduler/job/' + str(randomint)
+            x = requests.put(chronos + 'scheduler/job/' + str(randomint))
