@@ -7,7 +7,7 @@ import requests
 # grab environment variables
 azurestoracct = os.environ['azurestoracct']
 azurequeue = os.environ['azurequeue']
-azurequeuekey = os.environ['azurequeuekey']
+azurequeuekey = os.environ['azurequeuekey'] + "==;"
 image = os.environ['image']
 
 if "delay" in os.environ:
@@ -20,6 +20,8 @@ if "docker" in os.environ:
 
 if "chronos" in os.environ:
     chronos = os.environ['chronos']
+
+print(chronos)
 
 while True:
     # set up azure queue
@@ -62,6 +64,5 @@ while True:
             # create and start docker container
             headers = {'Content-Type': 'application/json'}
             r = requests.post(chronos + "scheduler/iso8601", data=json.dumps(data), headers=headers)
-            print (r.text)
-            x = requests.put(chronos + 'scheduler/job/' + str(randomint))
-            x = requests.delete(chronos + 'scheduler/job/' + str(randomint))
+            print (r)
+            x = requests.put(chronos + 'scheduler/job/' + str(randomint)
