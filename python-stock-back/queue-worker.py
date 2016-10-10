@@ -21,8 +21,6 @@ if "docker" in os.environ:
 if "chronos" in os.environ:
     chronos = os.environ['chronos']
 
-print(chronos)
-
 while True:
     # set up azure queue
     queue_service = QueueService(account_name=azurestoracct, account_key=azurequeuekey)
@@ -32,7 +30,6 @@ while True:
 
     # delete from queue, create container, start container
     for message in messages:
-        #print(message.content)
         
         # delete message from azure queue
         queue_service.delete_message(azurequeue, message.id, message.pop_receipt)
@@ -64,5 +61,4 @@ while True:
             # create and start docker container
             headers = {'Content-Type': 'application/json'}
             r = requests.post(chronos + "scheduler/iso8601", data=json.dumps(data), headers=headers)
-            print (r)
             x = requests.put(chronos + 'scheduler/job/' + str(randomint))
