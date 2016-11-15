@@ -8,7 +8,7 @@ import requests
 azurestoracct = os.environ['azurestoracct']
 azurequeue = os.environ['azurequeue']
 azurequeuekey = os.environ['azurequeuekey'] + "==;"
-image = os.environ['image']
+docker_image = os.environ['docker_image']
 
 if "delay" in os.environ:
     delay = os.environ['delay']
@@ -39,7 +39,7 @@ while True:
             # sample json
             # {"Image": "neilpeterson/stock-report","Cmd": ["--symbols=msft;lnkd", "--email=nepeters@microsoft.com"],"Env": ["gmuser = xneilpetersonx@gmail.com", "gmpass = TempForDemo2016"]}
             s = message.content.split(':')
-            data = json.loads('{"Image": "' + image + '","Cmd": ["--symbols=' + s[0] +'", "--email=' + s[1] + '","--delay=' + str(delay) + '"]}')
+            data = json.loads('{"Image": "' + docker_image + '","Cmd": ["--symbols=' + s[0] +'", "--email=' + s[1] + '","--delay=' + str(delay) + '"]}')
             print(data)
         
             # create and start docker container

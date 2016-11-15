@@ -1,7 +1,7 @@
 FROM python
 
-ENV gmuser xneilpetersonx@gmail.com
-ENV gmpass TempForDemo2016
+ENV gmuser <replace>
+ENV gmpass <replace>
 
 RUN pip install requests
 
