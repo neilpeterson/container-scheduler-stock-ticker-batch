@@ -1,14 +1,14 @@
 version: '2'
 services:
     stock-front:
-        image: neilpeterson/stock-front-batch
+        image: neilpeterson/stock-front
         ports:
             - "80:80"
 
     stock-back:
-        image: neilpeterson/stock-worker-batch
+        image: neilpeterson/batch-stock-worker
         environment:
             - docker=http://0.0.0.0:2375/containers/
             
     stock-report:
-        image: neilpeterson/stock-report-batch
+        image: neilpeterson/batch-stock-report
