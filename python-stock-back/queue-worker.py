@@ -55,7 +55,7 @@ while True:
             # sample json
             # {"schedule": "R0/2016-09-28T22:55:00Z/PT24H", "name": "docker08", "cpus": "0.1", "mem": "32", "command": "docker run -e reportdelay=120 -e gmuser=xneilpetersonx@gmail.com -e gmpass=TempForDemo2016 neilpeterson/stock-report-linux --symbols=msft --email=neil.peterson@microsoft.com"}
             s = message.content.split(':')
-            data = json.loads('{"schedule": "R0/2016-09-28T22:55:00Z/PT24H","name":"' + str(randomint) + '","cpus": "0.1","mem": "32","command": "docker run ' + image + ' --symbols=' + s[0] + ' --email=' + s[1] + ' --delay=' + str(delay) + '"}')
+            data = json.loads('{"schedule": "R0/2016-09-28T22:55:00Z/PT24H","name":"' + str(randomint) + '","cpus": "0.1","mem": "32","command": "docker run ' + docker_image + ' --symbols=' + s[0] + ' --email=' + s[1] + ' --delay=' + str(delay) + '"}')
             print(data)
 
             # create and start docker container
